@@ -6,6 +6,10 @@ Implementation in Pytorch of an attention-based combination of CNN and LSTM to r
   <img src="https://github.com/mdugot/attention-based-text-recognition/blob/master/plot.gif" />
 </p>
 
+## Requirements
+
+The requirements can be installed with `pip3 install -r requirements.txt`.
+
 ## Dataset
 
 Download the [MJSynth dataset](https://www.robots.ox.ac.uk/~vgg/data/text/) to train or evaluate the model.
