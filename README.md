@@ -1,4 +1,4 @@
-# Combination of CNN and LSTM for Attention-based text recognition
+# Attention-based text recognition
 
 Implementation in Pytorch of an attention-based combination of CNN and LSTM to read a text character by character.
 
@@ -13,7 +13,7 @@ Download the [MJSynth dataset](https://www.robots.ox.ac.uk/~vgg/data/text/) to t
 ## Training
 
 Use the command `python3 train.py <path_to_the_dataset>` to run a training on the train set of the MJSynth dataset.
-During the training, the model state will be regularly saved in the folder named `./saves` inside the subfolder corresponding to the date the training started.
+During the training, the model state will be regularly saved in the folder named `./saves` inside the subfolder corresponding to the date and time when the training started.
 A training can be continued from a previous state with the option `--restore <path_to_model_checkpoint>`
 More info can be dislayed with `python3 train.py -h`.
 
@@ -33,7 +33,7 @@ optional arguments:
 ## Validation
 
 Use the command `python3 validation.py <path_to_the_dataset> <path_to_model_checkpoint>` to evaluate a trained model on the validation set of the MJSynth dataset.
-Use the option `--plot` to plot an animation of the attention mask at each step of the inference.
+The option `--plot` can be used to plot an animation of the attention mask at each step of the inference.
 The file `trained.chkpt` contains the state of a trained model that can directly be used for the validation.
 More info can be dislayed with `python3 validation.py -h`.
 
