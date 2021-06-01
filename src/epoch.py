@@ -5,7 +5,7 @@ from tqdm import tqdm
 from src.config import Config
 
 
-def _epoch(dataloader, model, recorder, loss_fn, training, optimizer=None, scheduler=None):
+def _epoch(dataloader, model, recorder, loss_fn, training, optimizer=None, scheduler=None, plot=False):
     if training:
         assert optimizer is not None
         assert scheduler is not None
@@ -30,6 +30,8 @@ def _epoch(dataloader, model, recorder, loss_fn, training, optimizer=None, sched
             outputs, states, masks = model(imgs, states, previous_chars)
             if nbatch == 0:
                 recorder.record_img(subepoch, step, imgs, masks)
+                if plot:
+                    recorder.plot(step, imgs, masks, outputs.argmax(dim=1))
             loss = loss_fn(outputs, labels[:,step]) / Config.batch_size
             ok = torch.sum(outputs.argmax(dim=1) == labels[:,step]).item()
             ng =  len(labels) - ok
@@ -41,6 +43,7 @@ def _epoch(dataloader, model, recorder, loss_fn, training, optimizer=None, sched
             optimizer.step()
         nbatch += 1
         if nbatch >= Config.cycle:
+            pbar.update(1)
             pbar.close()
             recorder.dump(subepoch)
             pbar = tqdm(total=Config.cycle)
@@ -59,5 +62,5 @@ def _epoch(dataloader, model, recorder, loss_fn, training, optimizer=None, sched
 def train_epoch(dataloader, model, recorder, loss_fn, optimizer, scheduler):
     _epoch(dataloader, model, recorder, loss_fn, True, optimizer, scheduler)
 
-def val_epoch(dataloader, model, recorder, loss_fn):
-    _epoch(dataloader, model, recorder, loss_fn, False)
+def val_epoch(dataloader, model, recorder, loss_fn, plot):
+    _epoch(dataloader, model, recorder, loss_fn, False, plot=plot)
