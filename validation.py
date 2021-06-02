@@ -21,6 +21,7 @@ args = parser.parse_args()
 
 if args.plot:
     Config.batch_size = 1
+    Config.cycle = 1
 
 valset = SynthTextDataset("/hdd/OCR/MJSynth/data", "annotation_val.txt", "lexicon.txt")
 valset.max_seq_len = Config.max_seq_len

@@ -15,8 +15,8 @@ class Config:
     learning_rate = 0.0003
     learning_rate_decay = 0.99
     epoch = 10
-    cycle = 10
-    device="cuda"
+    cycle = 1000
+    device= "cuda" if torch.cuda.is_available() else "cpu"
     session = datetime.now().strftime("%m_%d_%Y, %H:%M:%S")
     save_path = './saves'
     code_path = 'code'
